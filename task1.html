@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Welcome Meassage App</title>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Shrikhand&display=swap");
+
+      body {
+        font-family: "Shrikhand", sans-serif;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        background-color: rgb(177, 225, 230);
+      }
+
+      h1 {
+        margin-bottom: 50px;
+        color: white;
+        -webkit-text-stroke: 2px black;
+      }
+
+      form {
+        display: flex;
+        flex-direction: column;
+        align-items: normal;
+        gap: 30px;
+      }
+
+      input{
+        padding: 20px;
+        border-radius: 7px;
+        border: none;
+        font-size: 30px;
+      }
+      input::placeholder{
+        font-size: 30px;
+        color: #888;
+      }
+
+      button {
+        padding: 20px;
+        border-radius: 7px;
+        border: none;
+        background-color: rgb(21, 87, 65);
+        color: white;
+        cursor: pointer;
+        font-size: 30px;
+      }
+
+      button:hover {
+        background-color: rgb(39, 173, 52);
+        color: white;
+        font-size: 30px;
+      }
+
+      #output {
+        margin-top: 20px;
+        padding: 15px;
+        border-radius: 10px;
+        background-color: #eaf4fc;
+        color: #5eb96a;
+        font-size: 45px;
+        font-weight: bold;
+        text-align: center;
+        -webkit-text-stroke: 2px rgb(17, 56, 23);
+        margin-top: 60px;
+      }
+
+
+    </style>
+  </head>
+  <body>
+    <h1>Hello 👋, Please tell me About Yourself 🕵️</h1>
+    <form id="infoForm">
+      <input type="text" id="name" placeholder="name" required />
+      <input type="number" id="age" placeholder="age" required />
+      <input type="text" id="hobby" placeholder="hobby" required />
+      <button type="submit">Show</button>
+    </form>
+    <div id="output" style="display: none"></div>
+
+    <script>
+      document
+        .getElementById("infoForm")
+        .addEventListener("submit", function (event) {
+          //prevent page reloading
+          event.preventDefault();
+          //taking user inputs
+          const name = document.getElementById("name").value.trim();
+          const age = document.getElementById("age").value.trim();
+          const hobby = document.getElementById("hobby").value.trim();
+
+          const message = `Welcome ${name} 😄, You are ${age} years old, and you like ${hobby}, Am i right? 🧐`;
+
+          const outputDiv = document.getElementById("output");
+          outputDiv.textContent = message;
+          outputDiv.style.display = "block";
+        });
+    </script>
+  </body>
+</html>
