@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Simple Calculator for Kids</title>
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+      rel="stylesheet"
+    />
+
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Chewy&display=swap");
+
+      html {
+        height: 100%;
+        margin: 0;
+      }
+      body {
+        font-family: "Chewy", serif;
+        font-weight: 800;
+        font-size: 30px;
+        font-style: normal;
+        background-image: url("https://as1.ftcdn.net/v2/jpg/07/46/46/62/1000_F_746466203_SaAaMsUbtFi4wYDnBmHeeSiqj7Qz5VPL.jpg");
+        background-repeat: no-repeat;
+        background-size: cover;
+        text-align: center;
+        justify-content: center;
+      }
+      h1 {
+        font-size: 100px;
+      }
+      h2 {
+        font-size: 50px;
+      }
+      h1,
+      h2 {
+        color: white;
+        -webkit-text-stroke: 2px black;
+        text-shadow: 3px 3px 4px gray;
+      }
+      button {
+        background-color: #ff6347;
+        color: white;
+        font-size: 24px;
+        padding: 20px 40px;
+        border: none;
+        border-radius: 12px;
+        cursor: pointer;
+        margin: 30px;
+      }
+
+      button:hover {
+        background-color: #ff4500;
+        transform: scale(1.1);
+      }
+
+      input {
+        font-size: 18px;
+        padding: 15px;
+        width: 250px;
+        border: 2px solid #ff6347;
+        border-radius: 20px;
+        outline: none;
+        margin-bottom: 25px;
+        margin-right: 30px;
+      }
+
+      input::placeholder {
+        color: #ff6347;
+      }
+
+      input:focus {
+        border-color: #ff4500;
+        box-shadow: 0 0 10px rgba(255, 69, 0, 0.5);
+      }
+
+      .result {
+        margin-top: 20px;
+        font-size: 50px;
+        padding: 15px;
+        width: 250px;
+        background-color: #ffeb3b;
+        border: 2px solid #ff9f1c;
+        border-radius: 10px;
+        color: #e74500;
+        font-weight: bold;
+        opacity: 0.8;
+        justify-content: center;
+        display: inline-block;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Calculator</h1>
+    <h2>put two numbers to start the math magic!</h2>
+    <form id="calculatorForm">
+      <input type="number" id="number1" placeholder="First number" required />
+      <input type="number" id="number2" placeholder="Second number" required />
+      <div>
+        <button type="button" onclick="calculate('add')">
+          <i class="fa-solid fa-plus"></i> add
+        </button>
+        <button type="button" onclick="calculate('subtract')">
+          <i class="fa-solid fa-minus"></i> subtract
+        </button>
+        <button type="button" onclick="calculate('multiply')">
+          <i class="fa-solid fa-xmark"></i> multiply
+        </button>
+        <button type="button" onclick="calculate('divide')">
+          <i class="fa-solid fa-divide"></i> divide
+        </button>
+      </div>
+    </form>
+    <div class="result" id="result">Your result will apear here</div>
+
+    <script>
+      function calculate(operation) {
+        const number1 = parseFloat(document.getElementById("number1").value);
+        const number2 = parseFloat(document.getElementById("number2").value);
+        const resultDiv = document.getElementById("result");
+        let result;
+
+        if (isNaN(number1) || isNaN(number2)) {
+          resultDiv.textContent = "Only numbers are accepted";
+          return;
+        }
+
+        switch (operation) {
+          case "add":
+            result = number1 + number2;
+            break;
+          case "subtract":
+            result = number1 - number2;
+            break;
+          case "multiply":
+            result = number1 * number2;
+            break;
+          case "divide":
+            if (number2 === 0) {
+              resultDiv.textContent = "You can't divide by zero";
+              return;
+            }
+            result = number1 / number2;
+            break;
+          default:
+            result = "Wrong operation";
+        }
+        resultDiv.textContent = `${result}`;
+      }
+    </script>
+  </body>
+</html>
