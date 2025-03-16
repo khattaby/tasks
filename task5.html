@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Filter</title>
+    <style>
+      body {
+        text-align: center;
+        background-color: #e8ece7;
+        padding: 20px;
+      }
+
+      input,
+      button {
+        padding: 10px;
+        margin: 5px;
+      }
+
+      ul {
+        list-style: none;
+        padding: 0;
+      }
+
+      li {
+        margin: 5px 0;
+        padding: 5px;
+        background: #e38b8b;
+      }
+    </style>
+  </head>
+
+  <body>
+    <input type="text" id="input" />
+    <button id="button">filter</button>
+    <ul id="list"></ul>
+    <script>
+      const input = document.getElementById("input");
+      const button = document.getElementById("button");
+      const list = document.getElementById("list");
+      const products = [
+        { name: "product1", price: 50 },
+        { name: "product2", price: 80 },
+        { name: "product3", price: 150 },
+        { name: "product4", price: 200 },
+      ];
+
+      products.forEach((product) => {
+        list.innerHTML += `<li>${product.name} - ${product.price}</li>`;
+      });
+
+      function filtring() {
+        list.innerHTML = "";
+        const inputValue = Number(input.value);
+
+        const filteredProducts = products.filter((product) => {
+          return product.price < inputValue;
+        });
+
+        filteredProducts.forEach((product) => {
+          const oneProduct = document.createElement("li");
+          oneProduct.textContent = `${product.name} - ${product.price}`;
+          list.appendChild(oneProduct);
+        });
+      }
+
+      button.addEventListener("click", filtring);
+    </script>
+  </body>
+</html>
