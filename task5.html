@@ -31,7 +31,7 @@
   </head>
 
   <body>
-    <input type="text" id="input" />
+    <input type="number" id="input" />
     <button id="button">filter</button>
     <ul id="list"></ul>
     <script>
@@ -51,11 +51,20 @@
 
       function filtring() {
         list.innerHTML = "";
-        const inputValue = Number(input.value);
+        const inputValue = input.value;
 
+        if (inputValue < 0) {
+          list.innerHTML = "<li>Enter positive number please</li>";
+          return;
+        }
         const filteredProducts = products.filter((product) => {
-          return product.price < inputValue;
+          return product.price <= inputValue;
         });
+
+        if (filteredProducts.length === 0) {
+          list.innerHTML = "<li>No products found under this price.</li>";
+          return;
+        }
 
         filteredProducts.forEach((product) => {
           const oneProduct = document.createElement("li");
