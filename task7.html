@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Product Prices</title>
+    <style>
+      body {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        margin: 0;
+      }
+
+      h1 {
+        text-align: center;
+      }
+
+      ul {
+        list-style: none;
+        display: flex;
+      }
+
+      li {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin: 50px;
+      }
+
+      img {
+        width: 150px;
+        height: 150px;
+        /* object-fit: cover; */
+        border-radius: 8px;
+        border: 1px solid #030303;
+      }
+
+      #btn {
+        margin: 50px;
+        padding: 50px;
+        border-radius: 50px;
+        font-size: 20px;
+        cursor: pointer;
+        background-color: #8ac689;
+      }
+
+      #btn:hover {
+        background-color: #327f32;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Product Prices Before and After Tax</h1>
+    <ul id="list"></ul>
+    <button id="btn">Show me the products that cost more than $10,000</button>
+
+    <script>
+      const products = [
+        {
+          name: "Car",
+          price: 1000000,
+          image:
+            "https://cdni.autocarindia.com/utils/ImageResizer.ashx?n=https://cms.haymarketindia.net/model/uploads/modelimages/Hyundai-Creta-180120241405.jpg&w=872&h=578&q=75&c=1",
+        },
+        {
+          name: "Phone",
+          price: 20000,
+          image:
+            "https://www.apple.com/v/iphone/home/cb/images/overview/consider_modals/privacy/modal_privacy__fztx4u51s8q6_large.jpg",
+        },
+        {
+          name: "TV",
+          price: 10000,
+          image:
+            "https://electronicparadise.in/cdn/shop/files/SAMled.jpg?v=1701762179&width=1500",
+        },
+        {
+          name: "Mackup",
+          price: 2000,
+          image: "https://m.media-amazon.com/images/I/71BzaiYYOuL.jpg",
+        },
+      ];
+
+      const taxRate = 0.14;
+
+      function withTax(price) {
+        return price + price * taxRate;
+      }
+
+      list = document.getElementById("list");
+      btn = document.getElementById("btn");
+
+      products.forEach((product) => {
+        const oneProductElement = document.createElement("li");
+        oneProductElement.innerHTML = `<img src="${product.image}">
+          <strong>${product.name}</strong>
+          <br>
+          price: $${product.price}
+          <br>
+          Price after tax: $${withTax(product.price)}`;
+        list.appendChild(oneProductElement);
+      });
+
+      function filtring() {
+        list.innerHTML = "";
+        const filteredProducts = products
+          .filter((product) => {
+            return product.price > 10000;
+          })
+          .forEach((product) => {
+            const oneProductElement = document.createElement("li");
+            oneProductElement.innerHTML = `<img src="${product.image}">
+          <strong>${product.name}</strong>
+          <br>
+          price: $${product.price}
+          <br>
+          Price after tax: $${withTax(product.price)}`;
+            list.appendChild(oneProductElement);
+          });
+      }
+
+      btn.addEventListener("click", filtring);
+    </script>
+  </body>
+</html>
