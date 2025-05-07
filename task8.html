@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Library</title>
+    <style>
+      body {
+        background: lightblue;
+        font-family: sans-serif;
+        text-align: center;
+        padding: 20px;
+        margin: 0;
+      }
+
+      .libraryContainer {
+        max-width: 800px;
+        margin: 0 auto;
+        background: #3d4cbc;
+        padding: 20px;
+        border-radius: 8px;
+      }
+
+      .categoryBox {
+        margin: 20px;
+        padding: 10px;
+        background: #98c7ab;
+        border-radius: 6px;
+      }
+
+
+      .bookBox {
+        background: white;
+        padding: 10px;
+        margin: 10px auto;
+        border-radius: 4px;
+        max-width: 500px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Our Library</h1>
+
+    <div class="libraryContainer">
+      <div class="categoryBox" id="fictionCategory">
+        <h2>Fiction Books</h2>
+        <div id="fictionList"></div>
+      </div>
+
+      <div class="categoryBox" id="scienceCategory">
+        <h2>Science Books</h2>
+        <div id="scienceList"></div>
+      </div>
+    </div>
+
+    <p>Total Pages in Library: <span id="totalPages"></span></p>
+
+    <script>
+      const library = {
+        fiction: [
+          { title: "Neon Dreams", author: "Author Cyber", pages: 150 },
+          { title: "Electric Shadows", author: "Author Spark", pages: 200 },
+        ],
+        science: [
+          { title: "Quantum Realms", author: "Author Quark", pages: 300 },
+          { title: "Cosmic Light", author: "Author Astro", pages: 250 },
+        ],
+      };
+
+      const fictionList = document.getElementById("fictionList");
+      const scienceList = document.getElementById("scienceList");
+
+      function createBookBox(book) {
+        const bookBox = document.createElement("div");
+        bookBox.className = "bookBox";
+        bookBox.textContent = `${book.title} by ${book.author} - ${book.pages} pages`;
+        return bookBox;
+      }
+
+      let totalPages = 0;
+
+      library.fiction.forEach((book) => {
+        fictionList.appendChild(createBookBox(book));
+        totalPages += book.pages;
+      });
+
+      library.science.forEach((book) => {
+        scienceList.appendChild(createBookBox(book));
+        totalPages += book.pages;
+      });
+
+      document.getElementById("totalPages").textContent = totalPages;
+    </script>
+  </body>
+</html>
