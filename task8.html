@@ -28,7 +28,6 @@
         border-radius: 6px;
       }
 
-
       .bookBox {
         background: white;
         padding: 10px;
@@ -70,22 +69,21 @@
       const fictionList = document.getElementById("fictionList");
       const scienceList = document.getElementById("scienceList");
 
-      function createBookBox(book) {
-        const bookBox = document.createElement("div");
-        bookBox.className = "bookBox";
-        bookBox.textContent = `${book.title} by ${book.author} - ${book.pages} pages`;
-        return bookBox;
-      }
-
       let totalPages = 0;
 
       library.fiction.forEach((book) => {
-        fictionList.appendChild(createBookBox(book));
+        const bookBox = document.createElement("div");
+        bookBox.className = "bookBox";
+        bookBox.textContent = `${book.title} by ${book.author} - ${book.pages} pages`;
+        fictionList.appendChild(bookBox);
         totalPages += book.pages;
       });
 
       library.science.forEach((book) => {
-        scienceList.appendChild(createBookBox(book));
+        const bookBox = document.createElement("div");
+        bookBox.className = "bookBox";
+        bookBox.textContent = `${book.title} by ${book.author} - ${book.pages} pages`;
+        scienceList.appendChild(bookBox);
         totalPages += book.pages;
       });
 
