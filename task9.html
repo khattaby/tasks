@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>قائمة المنتجات</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #e5ebf0;
+        margin: 0;
+        padding: 0;
+      }
+
+      h1 {
+        text-align: center;
+      }
+
+      #productList {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-top: 20px;
+      }
+
+      .product {
+        background-color: white;
+        border-radius: 30px;
+        padding: 20px;
+        margin-bottom: 15px;
+        width: 100%;
+        max-width: 400px;
+      }
+
+      .product h1 {
+        font-size: 20px;
+        color: #007bff;
+        margin: 0;
+      }
+
+      .product button {
+        background-color: #007bff;
+        color: white;
+        border: none;
+        padding: 8px 15px;
+        border-radius: 5px;
+        cursor: pointer;
+        margin-right: 10px;
+      }
+
+      .product button:hover {
+        background-color: #0056b3;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div>
+      <h1>Products List</h1>
+      <div id="productList"></div>
+    </div>
+
+    <script>
+      const products = [
+        {
+          name: "لابتوب",
+          price: 15000,
+          description: "لابتوب عالي الأداء للألعاب والبرمجة",
+        },
+        { name: "هاتف", price: 8000, description: "هاتف ذكي مع شاشة AMOLED" },
+        { name: "سماعات", price: 500, description: "سماعات أذن عالية الجودة" },
+      ];
+
+      function renderProducts() {
+        const productList = document.getElementById("productList");
+        productList.innerHTML = "";
+
+        if (products.length === 0) {
+          productList.innerHTML = "<p>No Products to show</p>";
+          return;
+        }
+
+        products.forEach((product, index) => {
+          const productDiv = document.createElement("div");
+          productDiv.className = "product";
+          productDiv.innerHTML = `<div> 
+                    <h1>${product.name}</h1>
+                    <p>السعر: ${product.price} جنيه</p>
+                    <p>${product.description}</p>
+                </div>
+                <div>
+                    <button onclick="deleteProduct(${index})">حذف</button>
+                    <button onclick="editProduct(${index})">تعديل</button>
+                </div>
+                `;
+          productList.appendChild(productDiv);
+        });
+      }
+
+      function deleteProduct(index) {
+        if (confirm("هل أنت متأكد أنك تريد حذف هذا المنتج؟")) {
+          products.splice(index, 1);
+          renderProducts();
+        }
+      }
+
+      function editProduct(index) {
+        const newName = prompt("أدخل الأسم الجديد:", products[index].name);
+        if (newName && newName.trim()) products[index].name = newName.trim();
+
+        const newPrice = prompt("أدخل السعر الجديد:", products[index].price);
+        if (newPrice && newPrice && !isNaN(newPrice))
+          products[index].price = parseFloat(newPrice);
+
+        const newDescription = prompt(
+          "أدخل الوصف الجديد:",
+          products[index].description
+        );
+        if (newDescription && newDescription.trim())
+          products[index].description = newDescription.trim();
+
+        renderProducts();
+      }
+
+      renderProducts();
+    </script>
+  </body>
+</html>
