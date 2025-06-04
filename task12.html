@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <title>تغيير لون الخلفية</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 50px;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+        }
+
+        .color-button {
+            padding: 10px 20px;
+            margin: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            color: white;
+            border-radius: 5px;
+        }
+
+        .red { background-color: red; }
+        .blue { background-color: blue; }
+        .green { background-color: green; }
+        .reset {
+            background-color: gray;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>اختر لون الخلفية</h1>
+
+    <button class="color-button red" onclick="changeColor('red')">أحمر</button>
+    <button class="color-button blue" onclick="changeColor('blue')">أزرق</button>
+    <button class="color-button green" onclick="changeColor('green')">أخضر</button>
+    <br>
+    <button class="color-button reset" onclick="resetColor()">إعادة التعيين</button>
+
+    <script>
+        // تغيير لون الخلفية وحفظه
+        function changeColor(color){
+            document.body.style.backgroundColor = color
+            localStorage.setItem("backgroundColor", color)
+        }
+
+        // إعادة تعيين اللون الافتراضي
+        function resetColor(){
+            document.body.style.backgroundColor = "white"
+            localStorage.removeItem("backgroundColor")
+        }
+
+        // استعادة اللون المحفوظ عند التحميل
+        const savedColor = localStorage.getItem("backgroundColor")
+        if(savedColor){
+            document.body.style.backgroundColor= savedColor
+        }
+
+/* What did I avoid?
+1. Not saving the chosen color to localStorage, which would cause it to be lost after refreshing the page.
+2. Not removing the color from localStorage in the resetColor function. 
+*/
+
+
+/* What did I learn?
+1. How to use document.body.style.backgroundColor to access and change the style of the <body> element.
+2. How to combine classes for a button, for example: class="color-button red", to apply both general and specific styles.
+3. How to use localStorage to save an object in the user's local browser, so changes persist after a refresh.
+*/
+
+    </script>
+
+</body>
+</html>
