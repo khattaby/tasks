@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ar">
+  <head>
+    <meta charset="UTF-8" />
+    <title>مثال على Set و Map</title>
+    <style>
+      body {
+        direction: rtl;
+        margin: 100px;
+        font-family: Arial, sans-serif;
+      }
+
+      h2 {
+        margin-bottom: 5px;
+      }
+
+      ul {
+        padding: 0;
+        list-style: none;
+      }
+
+      li {
+        margin-bottom: 5px;
+      }
+    </style>
+  </head>
+  <body>
+    <h2>المستخدمين:</h2>
+    <ul id="userList"></ul>
+
+    <h2>المنتجات:</h2>
+    <ul id="productList"></ul>
+
+    <script>
+      // التعامل مع Set
+      const userSet = new Set(["Osama", "Ahmed", "Ali", "Ayman"]);
+      userSet.add("Reda");
+      userSet.delete("Ali");
+
+      const userList = document.getElementById("userList");
+      userSet.forEach((user) => {
+        const li = document.createElement("li");
+        li.textContent = user;
+        userList.appendChild(li);
+      });
+
+      // التعامل مع Map
+      const productMap = new Map();
+      productMap.set("Laptop", { price: 15000, quantity: 3 });
+      productMap.set("Phone", { price: 8000, quantity: 5 });
+
+      const productList = document.getElementById("productList");
+      productMap.forEach((info, product) => {
+        const li = document.createElement("li");
+        li.textContent = `${product} - السعر: ${info.price}ج - الكمية: ${info.quantity}`;
+        productList.appendChild(li);
+      });
+
+      /*
+What did I learn?
+1. In JavaScript, map.forEach() passes the value as the first parameter and the key as the second,
+   map.forEach((value, key) => {}).
+2. A Map in JavaScript stores key-value pairs where keys can be any type.
+3. A Set in JavaScript stores unique values of any type, without keys or duplicates.
+4. I can use set() and delete() to add and remove entries in a Map,
+   and add() and delete() to add and remove values in a Set.
+*/
+    </script>
+  </body>
+</html>
