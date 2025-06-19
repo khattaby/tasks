@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>قائمة المستخدمين</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            padding: 20px;
+            text-align: center;
+        }
+        .user-card {
+            background-color: #fff;
+            border: 1px solid #ccc;
+            padding: 15px;
+            margin: 10px auto;
+            width: 300px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .user-card button {
+            margin-top: 10px;
+            padding: 6px 12px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .user-card button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>قائمة المستخدمين</h1>
+    <div id="userContainer"></div>
+
+    <script>
+        // Constructor Function
+        function User(name, age, email) {
+            this.name = name;
+            this.age = age;
+            this.email = email;
+
+            this.greet = function () {
+                return `مرحبًا ${this.name}! عمرك ${this.age} عامًا وبريدك الإلكتروني هو ${this.email}.`;
+            };
+
+            this.updateName = function (newName) {
+                this.name = newName;
+            };
+        }
+
+        // Users Data
+        const users = [
+            new User("أسامة", 25, "osama@example.com"),
+            new User("سما", 30, "sama@example.com"),
+            new User("ايمن", 29, "ayman@example.com")
+        ];
+
+        // Rendering Users
+        function renderUsers() {
+            const userContainer = document.getElementById("userContainer");
+            userContainer.innerHTML = "";
+
+            users.forEach(user => {
+                const userDiv = document.createElement("div");
+                userDiv.className = "user-card";
+                userDiv.innerHTML = `
+                    <p>${user.greet()}</p>
+                    <button onclick="updateUserName('${user.name}')">تغيير الاسم</button>
+                `;
+                userContainer.appendChild(userDiv);
+            });
+        }
+
+        // Updating User Name
+        function updateUserName(currentName) {
+            const newName = prompt(`أدخل الاسم الجديد للمستخدم ${currentName}:`);
+            if (newName) {
+                const user = users.find(u => u.name === currentName);
+                if (user) {
+                    user.updateName(newName);
+                    alert("تم تحديث الاسم بنجاح!");
+                    renderUsers();
+                }
+            }
+        }
+
+        // Initial Render
+        renderUsers();
+
+/* what did i learn?
+1. Constructor Function: I learned that a constructor function is a way to create new objects that contain
+   properties (variables) and methods (functions).
+
+2. I learned that inside a constructor function, "this" refers to the specific object being created,
+   I used to assign properties and define methods for that object.
+
+3. I learned that I can use a constructor function with the new keyword to create objects,
+   and I can store those objects in an array.
+
+4. How to use find() to search in an array with an exact condition.
+
+5. How to manipulate the properties and methods from outside the constructor function.
+
+6. If I want to combine text with a variable, I should use backticks (``) and the ${} syntax, for example: أدخل الاسم الجديد للمستخدم ${currentName}.
+   If I'm not combining text and just want to insert a variable (like in HTML), I can use single quotes around the expression,
+   like this: '${user.name}', when using JavaScript and HTML together. 
+*/
+    </script>
+
+</body>
+</html>

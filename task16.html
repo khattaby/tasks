@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>نموذج بسيط</title>
+    <style>
+        body { font-family: sans-serif; padding: 20px; }
+        .error { color: red; font-size: 14px; }
+    </style>
+</head>
+<body>
+
+<form id="validationForm">
+    <label>اسم المستخدم:</label><br>
+    <input type="text" id="username"><br>
+    <div id="usernameError" class="error"></div><br>
+
+    <label>البريد الإلكتروني:</label><br>
+    <input type="email" id="email"><br>
+    <div id="emailError" class="error"></div><br>
+
+    <button type="submit">إرسال</button>
+</form>
+
+<script>
+    const form = document.getElementById('validationForm');
+    const username = document.getElementById('username');
+    const email = document.getElementById('email');
+    const usernameError = document.getElementById('usernameError');
+    const emailError = document.getElementById('emailError');
+
+    form.addEventListener('submit', (e) => {
+        let valid = true;
+
+        if (username.value.trim() === '') {
+            usernameError.textContent = 'اسم المستخدم مطلوب.';
+            valid = false;
+        } else {
+            usernameError.textContent = '';
+        }
+
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(email.value)) {
+            emailError.textContent = 'البريد الإلكتروني غير صحيح.';
+            valid = false;
+        } else {
+            emailError.textContent = '';
+        }
+
+        if (!valid) e.preventDefault();
+    });
+
+/*
+What did i learn ?
+1.....
+/^[^\s@]+@[^\s@]+\.[^\s@]+$/
+(/ /)           Regex start and end
+(^ and $)       Include all text
+([^\s@]+)       one or more characters that are not whitespace (\s) or @. The part before the @.
+(@)             Just @ symbol   
+([^\s@]+)       one or more characters that are not whitespace (\s) or @.representing the domain name part before the dot.
+(\.)            Just Dot symbol   
+([^\s@]+)       one or more characters that are not whitespace (\s) or @. representing the domain extension (like com, net, org).
+
+2......
+emailRegex.test(email.value) - i can test regex validation by .test()
+
+3......
+if (!valid) e.preventDefault() - Concept of not restarting under a condition.
+*/
+</script>
+
+</body>
+</html>
