@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مولد الأرقام العشوائية</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            direction: rtl; /* Right to left text direction for Arabic */
+            background-color: #f4f4f9;
+            color: #333;
+            text-align: center;
+            padding: 50px;
+        }
+
+        h1 {
+            color: #2980b9;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            margin: 10px;
+        }
+
+        button:hover {
+            background-color: #2980b9;
+        }
+
+        #number {
+            font-size: 30px;
+            margin-top: 20px;
+        }
+
+        #allNumbers {
+            margin-top: 20px;
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+    <h1>مولد الأرقام العشوائية</h1>
+    <button onclick="generateRandomNumber()">إنتاج رقم عشوائي</button>
+    <button onclick="showAllNumbers()">عرض جميع الأرقام</button>
+    
+    <div id="number"></div>
+    <div id="allNumbers"></div>
+
+    <script>
+        // Random Number Generator Example
+        let generatedNumbers = [];
+
+        // Generator function to generate random numbers
+        function* randomNumberGenerator() {
+            while (true) {
+                yield Math.floor(Math.random() * 100) + 1;
+            }
+        }
+
+        const generator = randomNumberGenerator();
+
+        // Function to generate a random number and add it to the list
+        function generateRandomNumber() {
+            const number = generator.next().value;
+            generatedNumbers.push(number);
+            const numberElement = document.getElementById("number");
+            numberElement.textContent = `الرقم العشوائي: ${number}`;
+            numberElement.style.color = "#2ecc71";
+            numberElement.style.fontWeight = "bold";
+        }
+
+        // Function to display all generated numbers
+        function showAllNumbers() {
+            const allNumbersElement = document.getElementById("allNumbers");
+            allNumbersElement.textContent = generatedNumbers.length
+                ? `الأرقام المنتجة: ${generatedNumbers.join(", ")}`
+                : "لم يتم إنتاج أرقام بعد.";
+            allNumbersElement.style.color = "#f1c40f";
+            allNumbersElement.style.fontWeight = "bold";
+        }
+
+        window.generateRandomNumber = generateRandomNumber;
+        window.showAllNumbers = showAllNumbers;
+    </script>
+</body>
+</html>

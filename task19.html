@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <title>العد التنازلي للحدث</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f0f4f8;
+            text-align: center;
+            padding: 50px;
+        }
+        h1 {
+            color: #333;
+        }
+        #countdown {
+            margin-top: 20px;
+            display: none; /* Initially hidden */
+            justify-content: center;
+            gap: 20px;
+        }
+        .countdown-box {
+            font-size: 24px;
+            padding: 20px;
+            background-color: #ffffff;
+            border: 2px solid #007acc;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            width: 120px;
+            text-align: center;
+        }
+        .countdown-item {
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        #expired {
+            color: red;
+            font-weight: bold;
+            font-size: 28px;
+        }
+        .countdown-box span {
+            display: block;
+            font-size: 18px;
+        }
+        button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 18px;
+            background-color: #007acc;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #005f99;
+        }
+        #status {
+            margin-top: 20px;
+            font-size: 20px;
+            font-weight: bold;
+            display: none; /* Initially hidden */
+        }
+    </style>
+</head>
+<body>
+
+    <h1>⏳ العد التنازلي للحدث</h1>
+    
+    <div id="countdown">
+        <div class="countdown-box">
+            <div class="countdown-item" id="days">0</div>
+            <span>أيام</span>
+        </div>
+        <div class="countdown-box">
+            <div class="countdown-item" id="hours">0</div>
+            <span>ساعات</span>
+        </div>
+        <div class="countdown-box">
+            <div class="countdown-item" id="minutes">0</div>
+            <span>دقائق</span>
+        </div>
+        <div class="countdown-box">
+            <div class="countdown-item" id="seconds">0</div>
+            <span>ثواني</span>
+        </div>
+    </div>
+    
+    <div id="status">جاري العد التنازلي...</div>
+
+    <!-- Start Countdown Button -->
+    <button id="startButton">ابدأ العد التنازلي</button>
+
+    <script>
+        // Set the date we're counting down to
+        const eventDate = new Date("Feb 28, 2026 15:00:00").getTime();
+
+        let countdownInterval;
+
+        // Function to update the countdown display
+        function updateCountdown() {
+            const now = new Date().getTime();
+            let distance = eventDate - now;
+
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            return {
+                days,
+                hours,
+                minutes,
+                seconds,
+                isExpired: distance < 0
+            };
+        }
+
+        // Function to start the countdown
+        function startCountdown() {
+            // Hide the button and show the countdown
+            document.getElementById("startButton").style.display = "none";  // Hide the button
+            document.getElementById("status").style.display = "block";  // Show the "جاري العد التنازلي..." text
+            document.getElementById("status").textContent = "جاري العد التنازلي...";  // Update the status text
+
+            const countdownElement = document.getElementById("countdown");
+            countdownElement.style.display = "flex";  // Show countdown boxes
+
+            countdownInterval = setInterval(() => {
+                const timeLeft = updateCountdown();
+
+                if (timeLeft.isExpired) {
+                    clearInterval(countdownInterval);
+                    document.getElementById("status").innerHTML = `<span id="expired">الحدث قد بدأ!</span>`;
+                } else {
+                    document.getElementById("days").textContent = timeLeft.days;
+                    document.getElementById("hours").textContent = timeLeft.hours;
+                    document.getElementById("minutes").textContent = timeLeft.minutes;
+                    document.getElementById("seconds").textContent = timeLeft.seconds;
+                }
+            }, 1000);
+        }
+
+        // Add event listener to the start button
+        document.getElementById("startButton").addEventListener("click", startCountdown);
+    </script>
+
+</body>
+</html>

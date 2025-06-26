@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>تنظيف النص</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 30px;
+            direction: ltr;
+        }
+
+        #textInput {
+            width: 20%;
+            font-size: 16px;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        #resultsBox {
+            margin-top: 20px;
+            display: none;
+        }
+
+        #resultsBox.show {
+            display: block;
+        }
+
+        #resultsList {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        #resultsList li {
+            background-color: #e0e0e0;
+            margin-bottom: 5px;
+            padding: 10px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>أدخل نصًا ليتم تنظيفه:</h2>
+
+    <textarea id="textInput" rows="4"></textarea><br>
+
+    <button onclick="processText()">نظف النص</button>
+
+    <div id="resultsBox">
+        <h3>النصوص المنظفة:</h3>
+        <ul id="resultsList"></ul>
+    </div>
+
+    <script>
+        function cleanText(text) {
+            return text
+                .trim()
+                .replace(/\s+/g, ' ')
+                .replace(/[^\w\u0600-\u06FF ]/g, '');
+        }
+
+
+        function processText() {
+            const inputText = document.getElementById('textInput').value;
+            const cleanedText = cleanText(inputText);
+
+            const resultsList = document.getElementById('resultsList');
+            const listItem = document.createElement('li');
+            listItem.textContent = cleanedText;
+            resultsList.prepend(listItem);
+
+            document.getElementById('resultsBox').classList.add('show');
+        }
+
+        
+/*
+What did i learn?
+1......
+/\s+/g, ' '
+(//g)           apply for all text
+(\s)            space, tab & new line
+' '             replace with space 
+--------------------------------------
+/[^\w\u0600-\u06FF ]/g, ''
+(//g)           apply for all text
+(^\w)           not a-z, A-Z, 0-9, _
+(\u0600-\u06FF) not all arabic chars 
+( )             spaces
+''              delete
+
+2......
+prepend()	Adds the element at the beginning.
+append()	Adds the element at the end.
+
+3......
+.classList - Accesses the list of CSS classes attached to that element.
+.add('show') - Adds the "show" class to the element if it’s not already there.
+*/
+    </script>
+
+</body>
+</html>

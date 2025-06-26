@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Book Library</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+            background-color: #f9f9f9;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        #bookContainer {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .book {
+            background-color: #fff;
+            padding: 20px;
+            border-left: 5px solid #007acc;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            line-height: 1.6;
+        }
+        .book button {
+            margin-top: 10px;
+            padding: 8px 16px;
+            background-color: #007acc;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+        .book button:hover {
+            background-color: #005f99;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>📚 My Book Collection</h1>
+    <div id="bookContainer"></div>
+
+    <script>
+        // Book Class Definition
+        class Book {
+            constructor(title, author, pages) {
+                this.title = title;
+                this.author = author;
+                this.pages = pages;
+            }
+
+            getDetails() {
+                return `${this.title} by ${this.author} - ${this.pages} pages.`;
+            }
+        }
+
+        // Ebook Class Definition (extends Book)
+        class Ebook extends Book {
+            constructor(title, author, pages, fileSize) {
+                super(title, author, pages);
+                this.fileSize = fileSize;
+            }
+
+            getEbookDetails() {
+                return `${this.getDetails()} Available in ebook format with a file size of ${this.fileSize}MB.`;
+            }
+        }
+
+        // Create Instances of Book and Ebook
+        const book1 = new Book("The Subtle Art of Not Giving a F*ck", "Mark Manson", 300);
+        const ebook1 = new Ebook("How to Win Friends and Influence People", "Dale Carnegie", 250, 2.5);
+
+        // Get book container element
+        const bookContainer = document.getElementById("bookContainer");
+
+        // Display Books on Page
+        [book1, ebook1].forEach(book => {
+            const bookDiv = document.createElement("div");
+            bookDiv.className = "book";
+
+            const description = book instanceof Ebook ? book.getEbookDetails() : book.getDetails();
+
+            bookDiv.innerHTML = `
+                <p>${description}</p>
+                <button>ابدأ القراءة</button>
+            `;
+
+            // Add event listener to the button
+            const button = bookDiv.querySelector("button");
+            button.addEventListener("click", () => {
+                alert("Enjoy your reading!");
+            });
+
+            bookContainer.appendChild(bookDiv);
+        });
+    </script>
+
+</body>
+</html>
