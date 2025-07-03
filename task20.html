@@ -1,78 +1,56 @@
 <!DOCTYPE html>
 <html lang="ar">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
     <title>مولد الأرقام العشوائية</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            margin-top: 50px;
-        }
-        #number, #allNumbers {
-            font-size: 20px;
-        }
-        button {
-            padding: 10px 20px;
-            font-size: 16px;
-            cursor: pointer;
-            margin: 10px;
-            background-color: #3498db;
-            color: white;
-            border: none;
-            border-radius: 5px;
-        }
-        button:hover {
-            background-color: #2980b9;
-        }
+      body {
+        text-align: center;
+        margin-top: 50px;
+        font-family: Arial;
+      }
+      button {
+        margin: 10px;
+        padding: 10px 20px;
+      }
+      #number,
+      #allNumbers {
+        margin: 20px;
+        font-size: 18px;
+      }
     </style>
-</head>
-<body>
-
+  </head>
+  <body>
     <h1>مولد الأرقام العشوائية</h1>
 
-    <div id="number">الرقم العشوائي: </div>
-    <div id="allNumbers">الأرقام المنتجة: </div>
+    <div id="number">الرقم العشوائي:</div>
+    <div id="allNumbers">الأرقام المنتجة:</div>
 
-    <button onclick="generateRandomNumber()">توليد رقم عشوائي جديد</button>
-    <button onclick="showAllNumbers()">عرض جميع الأرقام</button>
+    <button onclick="generate()">توليد رقم عشوائي جديد</button>
+    <button onclick="showAll()">عرض جميع الأرقام</button>
 
     <script>
-        let generatedNumbers = [];
+      let numbers = [];
 
-        // Generator function to generate random numbers
-        function* randomNumberGenerator() {
-            while (true) {
-                yield Math.floor(Math.random() * 100) + 1;
-            }
-        }
+      function generate() {
+        const num = Math.floor(Math.random() * 100) + 1;
+        numbers.push(num);
+        document.getElementById("number").textContent = "الرقم العشوائي: " + num;
+      }
 
-        const generator = randomNumberGenerator();
+      function showAll() {
+        const text = numbers.length ? numbers.join(", ") : "لم يتم إنتاج أرقام بعد.";
+        document.getElementById("allNumbers").textContent =
+          "الأرقام المنتجة: " + text;
+      }
 
-        // Function to generate a random number and add it to the list
-        function generateRandomNumber() {
-            const number = generator.next().value;
-            generatedNumbers.push(number);
-            const numberElement = document.getElementById("number");
-            numberElement.textContent = `الرقم العشوائي: ${number}`;
-            numberElement.style.color = "#2ecc71";
-            numberElement.style.fontWeight = "bold";
-        }
+/*
+What did i learn ?
 
-        // Function to display all generated numbers
-        function showAllNumbers() {
-            const allNumbersElement = document.getElementById("allNumbers");
-            allNumbersElement.textContent = generatedNumbers.length
-                ? `الأرقام المنتجة: ${generatedNumbers.join(", ")}`
-                : "لم يتم إنتاج أرقام بعد.";
-            allNumbersElement.style.color = "#f1c40f";
-            allNumbersElement.style.fontWeight = "bold";
-        }
+1. How to generete numbers randoumly in js 
 
-        window.generateRandomNumber = generateRandomNumber;
-        window.showAllNumbers = showAllNumbers;
+2. The ternary operator condition
+*/
     </script>
-
-</body>
+  </body>
 </html>
