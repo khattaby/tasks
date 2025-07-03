@@ -7,53 +7,38 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            direction: rtl; /* Right to left text direction for Arabic */
-            background-color: #f4f4f9;
-            color: #333;
             text-align: center;
-            padding: 50px;
+            margin-top: 50px;
         }
-
-        h1 {
-            color: #2980b9;
+        #number, #allNumbers {
+            font-size: 20px;
         }
-
         button {
             padding: 10px 20px;
             font-size: 16px;
+            cursor: pointer;
+            margin: 10px;
             background-color: #3498db;
             color: white;
             border: none;
-            cursor: pointer;
             border-radius: 5px;
-            margin: 10px;
         }
-
         button:hover {
             background-color: #2980b9;
-        }
-
-        #number {
-            font-size: 30px;
-            margin-top: 20px;
-        }
-
-        #allNumbers {
-            margin-top: 20px;
-            font-size: 18px;
         }
     </style>
 </head>
 <body>
+
     <h1>مولد الأرقام العشوائية</h1>
-    <button onclick="generateRandomNumber()">إنتاج رقم عشوائي</button>
+
+    <div id="number">الرقم العشوائي: </div>
+    <div id="allNumbers">الأرقام المنتجة: </div>
+
+    <button onclick="generateRandomNumber()">توليد رقم عشوائي جديد</button>
     <button onclick="showAllNumbers()">عرض جميع الأرقام</button>
-    
-    <div id="number"></div>
-    <div id="allNumbers"></div>
 
     <script>
-        // Random Number Generator Example
         let generatedNumbers = [];
 
         // Generator function to generate random numbers
@@ -88,5 +73,6 @@
         window.generateRandomNumber = generateRandomNumber;
         window.showAllNumbers = showAllNumbers;
     </script>
+
 </body>
 </html>

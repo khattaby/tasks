@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <title>نموذج JSON</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      direction: rtl;
+      text-align: right;
+    }
+    label, input, button {
+      display: block;
+      margin-bottom: 10px;
+      width: 100%;
+      max-width: 300px;
+    }
+    input, button {
+      padding: 8px;
+      font-size: 1rem;
+    }
+    button {
+      cursor: pointer;
+    }
+    pre {
+      background: #eee;
+      padding: 10px;
+      max-width: 300px;
+      white-space: pre-wrap;
+      word-wrap: break-word;
+    }
+  </style>
+</head>
+<body>
+  <h1>نموذج JSON </h1>
+  <form id="json-form">
+    <label for="name">الاسم:</label>
+    <input type="text" id="name" required />
+
+    <label for="email">البريد الإلكتروني:</label>
+    <input type="email" id="email" required />
+
+    <label for="age">العمر:</label>
+    <input type="number" id="age" required />
+
+    <button type="submit">إرسال</button>
+  </form>
+
+  <pre id="output"></pre>
+
+  <script>
+    document.getElementById("json-form").addEventListener("submit", function (e) {
+      e.preventDefault();
+      const jsonData = {
+        name: document.getElementById("name").value,
+        email: document.getElementById("email").value,
+        age: document.getElementById("age").value,
+      };
+      document.getElementById("output").textContent = `البيانات المدخلة:\n\n${JSON.stringify(jsonData, null, 2)}`;
+    });
+  </script>
+</body>
+</html>
