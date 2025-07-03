@@ -2,78 +2,100 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Book Library</title>
+    <title>Book Display</title>
     <style>
         body {
             font-family: Arial, sans-serif;
-            margin: 40px;
-            background-color: #f9f9f9;
-        }
-        h1 {
-            text-align: center;
+            margin: 20px;
+            background-color: #f5f5f5;
             color: #333;
         }
+
+        h1 {
+            text-align: center;
+        }
+
         #bookContainer {
             display: flex;
             flex-direction: column;
-            gap: 20px;
+            gap: 15px;
             max-width: 600px;
             margin: 0 auto;
         }
+
         .book {
-            background-color: #fff;
-            padding: 20px;
-            border-left: 5px solid #007acc;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-            line-height: 1.6;
+            background-color: #ffffff;
+            padding: 15px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
         }
-        .book button {
+
+        .read-button {
             margin-top: 10px;
-            padding: 8px 16px;
-            background-color: #007acc;
-            color: #fff;
+            padding: 10px 15px;
+            background-color: #007BFF;
+            color: white;
             border: none;
+            border-radius: 5px;
             cursor: pointer;
         }
-        .book button:hover {
-            background-color: #005f99;
+
+        .read-button:hover {
+            background-color: #0056b3;
         }
     </style>
 </head>
 <body>
-
-    <h1>📚 My Book Collection</h1>
+    <h1>My Book Collection</h1>
     <div id="bookContainer"></div>
 
     <script>
         // Book Class Definition
         class Book {
-            constructor(title, author, pages) {
+            constructor(title, author, pages, quote) {
                 this.title = title;
                 this.author = author;
                 this.pages = pages;
+                this.quote = quote;
             }
 
             getDetails() {
                 return `${this.title} by ${this.author} - ${this.pages} pages.`;
             }
+
+            getQuote() {
+                return this.quote;
+            }
         }
 
         // Ebook Class Definition (extends Book)
         class Ebook extends Book {
-            constructor(title, author, pages, fileSize) {
-                super(title, author, pages);
+            constructor(title, author, pages, fileSize, quote) {
+                super(title, author, pages, quote);
                 this.fileSize = fileSize;
             }
 
             getEbookDetails() {
-                return `${this.getDetails()} Available in ebook format with a file size of ${this.fileSize}MB.`;
+                return `${this.getDetails()} [Available in ebook format with a file size of ${this.fileSize}MB]`;
             }
         }
 
-        // Create Instances of Book and Ebook
-        const book1 = new Book("The Subtle Art of Not Giving a F*ck", "Mark Manson", 300);
-        const ebook1 = new Ebook("How to Win Friends and Influence People", "Dale Carnegie", 250, 2.5);
+        // Create Instances of Book and Ebook with quotes
+        const book1 = new Book(
+            "The Subtle Art of Not Giving a F*ck",
+            "Mark Manson",
+            300,
+            "Who you are is defined by what you’re willing to struggle for."
+        );
+
+        const ebook1 = new Ebook(
+            "How to Win Friends and Influence People",
+            "Dale Carnegie",
+            250,
+            2.5,
+            "You can make more friends in two months by becoming interested in other people than you can in two years by trying to get other people interested in you."
+        );
 
         // Get book container element
         const bookContainer = document.getElementById("bookContainer");
@@ -83,22 +105,41 @@
             const bookDiv = document.createElement("div");
             bookDiv.className = "book";
 
-            const description = book instanceof Ebook ? book.getEbookDetails() : book.getDetails();
+            const bookText = book instanceof Ebook ? book.getEbookDetails() : book.getDetails();
 
-            bookDiv.innerHTML = `
-                <p>${description}</p>
-                <button>ابدأ القراءة</button>
-            `;
+            const button = document.createElement("button");
+            button.className = "read-button";
+            button.textContent = "ابدأ القراءة";
 
-            // Add event listener to the button
-            const button = bookDiv.querySelector("button");
+            // Add click event to show the quote
             button.addEventListener("click", () => {
-                alert("Enjoy your reading!");
+                alert(`📖 اقتباس من الكتاب:\n\n"${book.getQuote()}"`);
             });
+
+            bookDiv.innerHTML = `<p>${bookText}</p>`;
+            bookDiv.appendChild(button);
 
             bookContainer.appendChild(bookDiv);
         });
-    </script>
 
+
+/* 
+What did i learn?
+
+1. A constructor is a special method inside a class that is automatically called when a new object is created from that class.
+   It is used to initialize the properties of the object with specific values.
+
+
+2. The extends keyword allows one class to inherit from another,
+    which helps in reusing code instead of repeating the same logic.
+    Ebook is a child class of the Book class.
+
+3. instanceof is an operator in JavaScript used to check if an object is an instance of a particular class or constructor function
+
+4. I can use forEach to loop over two classes at the same time.
+
+*/
+
+    </script>
 </body>
 </html>
