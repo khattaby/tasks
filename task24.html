@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Counter Task</title>
+    <style>
+      body {
+        font-family: sans-serif;
+        text-align: center;
+        padding: 30px;
+        background: #f9f9f9;
+      }
+
+      button {
+        margin: 0 5px;
+        padding: 6px 12px;
+        font-size: 16px;
+        font-weight: bold;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        background: #7950f2;
+        color: white;
+      }
+
+      button:hover {
+        background: #5f3dc4;
+      }
+
+      .row {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 15px 0;
+        gap: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root"></div>
+
+    <!-- React + ReactDOM من CDN -->
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <script type="text/babel">
+      const { useState } = React;
+
+      function App() {
+        return (
+          <div className="App">
+            <h2>📅 Date Counter</h2>
+            <Counter />
+          </div>
+        );
+      }
+
+      function Counter() {
+        const [step, setStep] = useState(1);
+        const [counter, setCounter] = useState(0);
+
+        const date = new Date();
+        date.setDate(date.getDate() + counter);
+
+        return (
+          <div>
+            <div className="row">
+              <p>#1 Change the step: ({step})</p>
+              <button onClick={() => setStep(step + 1)}>+</button>
+              <button onClick={() => setStep(step - 1)}>-</button>
+            </div>
+
+            <div className="row">
+              <p>#2 Change the days: ({counter})</p>
+              <button onClick={() => setCounter(counter + step)}>+</button>
+              <button onClick={() => setCounter(counter - step)}>-</button>
+            </div>
+
+            <p>
+              {counter === 0
+                ? "Today is"
+                : counter > 0
+                ? `${counter} days from today is`
+                : `${Math.abs(counter)} days ago was`}
+            </p>
+            <h3>{date.toDateString()}</h3>
+          </div>
+        );
+      }
+
+      const root = ReactDOM.createRoot(document.getElementById("root"));
+      root.render(<App />);
+    </script>
+  </body>
+</html>
